@@ -113,7 +113,7 @@ func (queue *memoryWebRTCCallQueue) SendOfferInit(
 		newUUID = uuid.NewString()
 	}
 	answererResponses := make(chan WebRTCCallAnswer)
-	offerDeadline := time.Now().Add(getDefaultOfferDeadline())
+	offerDeadline, _ := ctx.Deadline()
 	sendCtx, sendCtxCancel := context.WithDeadline(queue.cancelCtx, offerDeadline)
 	offer := memoryWebRTCCallOfferInit{
 		uuid:               newUUID,
